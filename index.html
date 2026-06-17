@@ -211,6 +211,34 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   .thanks .big{font-family:'Arial Black',Arial;font-size:24px;color:var(--oro);text-transform:uppercase;margin-bottom:8px}
 
+  /* ===== SELETTORE LINGUA (tendina in alto a destra) ===== */
+  .lang{position:fixed;top:14px;right:14px;z-index:50;
+    font-family:'Helvetica Neue',Arial,sans-serif}
+  .lang button{text-transform:none;letter-spacing:0}
+  .lang button::after{content:none;display:none}
+  .lang-btn{display:flex;align-items:center;gap:8px;cursor:pointer;
+    background:rgba(18,18,18,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    border:1.5px solid var(--oro-scuro);border-radius:40px;
+    padding:8px 12px;color:#fff;font-size:14px;font-weight:700;
+    transition:border-color .2s,background .2s,transform .12s}
+  .lang-btn:hover{border-color:var(--oro);background:rgba(40,35,15,.9);transform:translateY(-1px)}
+  .lang-btn .flag{font-size:18px;line-height:1}
+  .lang-btn .caret{font-size:10px;color:var(--oro);transition:transform .25s}
+  .lang.open .lang-btn .caret{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:168px;
+    background:#121212;border:1.5px solid var(--oro-scuro);border-radius:14px;
+    overflow:hidden;box-shadow:0 16px 44px rgba(0,0,0,.65);
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .2s ease,transform .2s ease,visibility .2s}
+  .lang.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-menu button{display:flex;align-items:center;gap:11px;width:100%;
+    background:none;border:none;border-radius:0;
+    color:#eee;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:600;font-size:15px;
+    padding:12px 16px;cursor:pointer;text-align:left}
+  .lang-menu button .flag{font-size:18px}
+  .lang-menu button:hover{background:rgba(212,175,55,.14)}
+  .lang-menu button[aria-current="true"]{background:rgba(212,175,55,.1);color:var(--oro)}
+
   /* rispetto preferenze di movimento ridotto */
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important;transition:none !important}
@@ -219,6 +247,19 @@
 </style>
 </head>
 <body>
+
+<!-- ===== SELETTORE LINGUA ===== -->
+<div class="lang" id="lang">
+  <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Cambia lingua / Change language">
+    <span class="flag">🇮🇹</span><span class="label">IT</span><span class="caret">▼</span>
+  </button>
+  <div class="lang-menu" role="menu">
+    <button type="button" data-lang="it" role="menuitem"><span class="flag">🇮🇹</span> Italiano</button>
+    <button type="button" data-lang="en" role="menuitem"><span class="flag">🇬🇧</span> English</button>
+    <button type="button" data-lang="es" role="menuitem"><span class="flag">🇪🇸</span> Español</button>
+  </div>
+</div>
+
 <div class="bg-lines"></div>
 <div class="wrap">
 
@@ -248,16 +289,16 @@
         </svg>
       </div>
       <div class="name">The Shirt<br>Hunter
-        <small>UNA MAGLIA AL GIORNO · LA NEWSLETTER</small>
+        <small data-i18n="brand_small">UNA MAGLIA AL GIORNO · LA NEWSLETTER</small>
       </div>
     </div>
   </header>
 
   <section class="hero">
-    <span class="kicker reveal d1"><span class="dot"></span> La newsletter ufficiale di @theshirt_hunter</span>
-    <h1 class="reveal d2">UNA <em>MAGLIA</em> AL GIORNO<br><span class="out">PER 365 GIORNI</span></h1>
-    <p class="sub reveal d3">Ogni giorno <strong>ti racconto un particolare di una maglia</strong>: la storia, il dettaglio nascosto, l'aneddoto che non conosci.</p>
-    <p class="motto reveal d4">Ogni maglia racconta una storia.</p>
+    <span class="kicker reveal d1"><span class="dot"></span> <span data-i18n="kicker">La newsletter ufficiale di @theshirt_hunter</span></span>
+    <h1 class="reveal d2" data-i18n="h1">UNA <em>MAGLIA</em> AL GIORNO<br><span class="out">PER 365 GIORNI</span></h1>
+    <p class="sub reveal d3" data-i18n="sub">Ogni giorno <strong>ti racconto un particolare di una maglia</strong>: la storia, il dettaglio nascosto, l'aneddoto che non conosci.</p>
+    <p class="motto reveal d4" data-i18n="motto">Ogni maglia racconta una storia.</p>
   </section>
 
   <!-- ============================================================
@@ -273,8 +314,8 @@
        conferma demo (non salva davvero le email).
        ============================================================ -->
   <section class="form-card reveal d2" id="iscriviti">
-    <h2>Entra in campo 🟡</h2>
-    <p class="note">Gratis. Una mail al giorno. Disiscriviti quando vuoi.</p>
+    <h2 data-i18n="form_h2">Entra in campo 🟡</h2>
+    <p class="note" data-i18n="note">Gratis. Una mail al giorno. Disiscriviti quando vuoi.</p>
 
     <!-- ▼▼▼ INIZIO BLOCCO DA SOSTITUIRE CON IL FORM SYSTEME.IO ▼▼▼ -->
     <form id="signup"
@@ -282,42 +323,176 @@
           method="post"
           target="_blank">
       <div class="row">
-        <input type="text"  name="name"  placeholder="Il tuo nome" autocomplete="given-name">
-        <input type="email" name="email" placeholder="La tua email" required autocomplete="email">
+        <input type="text"  name="name"  placeholder="Il tuo nome" data-i18n-ph="ph_name" autocomplete="given-name">
+        <input type="email" name="email" placeholder="La tua email" data-i18n-ph="ph_email" required autocomplete="email">
       </div>
-      <button type="submit">Ricevi la prima maglia →</button>
-      <p class="privacy">Iscrivendoti accetti di ricevere le email di The Shirt Hunter. Niente spam, promesso.</p>
+      <button type="submit" data-i18n="button">Ricevi la prima maglia →</button>
+      <p class="privacy" data-i18n="privacy">Iscrivendoti accetti di ricevere le email di The Shirt Hunter. Niente spam, promesso.</p>
     </form>
     <!-- ▲▲▲ FINE BLOCCO DA SOSTITUIRE ▲▲▲ -->
 
     <div class="thanks" id="thanks">
-      <div class="big">Sei dentro! ⚽</div>
-      <p>Controlla la tua casella: la prima maglia sta arrivando.</p>
+      <div class="big" data-i18n="thanks_big">Sei dentro! ⚽</div>
+      <p data-i18n="thanks_p">Controlla la tua casella: la prima maglia sta arrivando.</p>
     </div>
   </section>
 
   <section class="how">
-    <h3 class="reveal">Come funziona</h3>
+    <h3 class="reveal" data-i18n="how_h3">Come funziona</h3>
     <div class="steps">
-      <div class="step reveal d1"><div class="n">1</div><p>Inserisci la tua email qui sopra</p></div>
-      <div class="step reveal d2"><div class="n">2</div><p>Ricevi una maglia al giorno, dal giorno 1 al 365</p></div>
-      <div class="step reveal d3"><div class="n">3</div><p>Scopri storie e dettagli che nessuno ti ha mai raccontato</p></div>
+      <div class="step reveal d1"><div class="n">1</div><p data-i18n="step1">Inserisci la tua email qui sopra</p></div>
+      <div class="step reveal d2"><div class="n">2</div><p data-i18n="step2">Ricevi una maglia al giorno, dal giorno 1 al 365</p></div>
+      <div class="step reveal d3"><div class="n">3</div><p data-i18n="step3">Scopri storie e dettagli che nessuno ti ha mai raccontato</p></div>
     </div>
   </section>
 
-  <div class="strip reveal">365 maglie · 365 storie · 1 al giorno</div>
+  <div class="strip reveal" data-i18n="strip">365 maglie · 365 storie · 1 al giorno</div>
 
   <footer class="reveal">
-    <a class="ig" href="https://www.instagram.com/theshirt_hunter/" target="_blank" rel="noopener">
+    <a class="ig" href="https://www.instagram.com/theshirt_hunter/" target="_blank" rel="noopener" data-i18n="ig">
       📸 Seguici su Instagram <b>@theshirt_hunter</b>
     </a>
-    <p class="copy">© <span id="y"></span> The Shirt Hunter · Football shirts from around the world</p>
+    <p class="copy" data-i18n="copy">© <span id="y"></span> The Shirt Hunter · Maglie da calcio da tutto il mondo</p>
   </footer>
 
 </div>
 
 <script>
-  document.getElementById('y').textContent = new Date().getFullYear();
+  /* ============================================================
+     MULTILINGUA  —  Italiano / English / Español
+     Per modificare un testo: cerca la sua "chiave" qui sotto.
+     ============================================================ */
+  var I18N = {
+    it:{
+      title:"THE SHIRT HUNTER — Una maglia al giorno, ogni giorno",
+      brand_small:"UNA MAGLIA AL GIORNO · LA NEWSLETTER",
+      kicker:"La newsletter ufficiale di @theshirt_hunter",
+      h1:"UNA <em>MAGLIA</em> AL GIORNO<br><span class=\"out\">PER 365 GIORNI</span>",
+      sub:"Ogni giorno <strong>ti racconto un particolare di una maglia</strong>: la storia, il dettaglio nascosto, l'aneddoto che non conosci.",
+      motto:"Ogni maglia racconta una storia.",
+      form_h2:"Entra in campo 🟡",
+      note:"Gratis. Una mail al giorno. Disiscriviti quando vuoi.",
+      ph_name:"Il tuo nome",
+      ph_email:"La tua email",
+      button:"Ricevi la prima maglia →",
+      privacy:"Iscrivendoti accetti di ricevere le email di The Shirt Hunter. Niente spam, promesso.",
+      thanks_big:"Sei dentro! ⚽",
+      thanks_p:"Controlla la tua casella: la prima maglia sta arrivando.",
+      how_h3:"Come funziona",
+      step1:"Inserisci la tua email qui sopra",
+      step2:"Ricevi una maglia al giorno, dal giorno 1 al 365",
+      step3:"Scopri storie e dettagli che nessuno ti ha mai raccontato",
+      strip:"365 maglie · 365 storie · 1 al giorno",
+      ig:"📸 Seguici su Instagram <b>@theshirt_hunter</b>",
+      copy:"© <span id=\"y\"></span> The Shirt Hunter · Maglie da calcio da tutto il mondo"
+    },
+    en:{
+      title:"THE SHIRT HUNTER — One shirt a day, every day",
+      brand_small:"ONE SHIRT A DAY · THE NEWSLETTER",
+      kicker:"The official newsletter of @theshirt_hunter",
+      h1:"ONE <em>SHIRT</em> A DAY<br><span class=\"out\">FOR 365 DAYS</span>",
+      sub:"Every day <strong>I tell you a detail of a shirt</strong>: the story, the hidden detail, the anecdote you don't know.",
+      motto:"Every shirt tells a story.",
+      form_h2:"Get in the game 🟡",
+      note:"Free. One email a day. Unsubscribe anytime.",
+      ph_name:"Your name",
+      ph_email:"Your email",
+      button:"Get the first shirt →",
+      privacy:"By subscribing you agree to receive emails from The Shirt Hunter. No spam, promise.",
+      thanks_big:"You're in! ⚽",
+      thanks_p:"Check your inbox: the first shirt is on its way.",
+      how_h3:"How it works",
+      step1:"Enter your email above",
+      step2:"Get one shirt a day, from day 1 to 365",
+      step3:"Discover stories and details no one has ever told you",
+      strip:"365 shirts · 365 stories · 1 a day",
+      ig:"📸 Follow us on Instagram <b>@theshirt_hunter</b>",
+      copy:"© <span id=\"y\"></span> The Shirt Hunter · Football shirts from around the world"
+    },
+    es:{
+      title:"THE SHIRT HUNTER — Una camiseta al día, cada día",
+      brand_small:"UNA CAMISETA AL DÍA · LA NEWSLETTER",
+      kicker:"La newsletter oficial de @theshirt_hunter",
+      h1:"UNA <em>CAMISETA</em> AL DÍA<br><span class=\"out\">DURANTE 365 DÍAS</span>",
+      sub:"Cada día <strong>te cuento un detalle de una camiseta</strong>: la historia, el detalle oculto, la anécdota que no conoces.",
+      motto:"Cada camiseta cuenta una historia.",
+      form_h2:"Salta al campo 🟡",
+      note:"Gratis. Un email al día. Cancela cuando quieras.",
+      ph_name:"Tu nombre",
+      ph_email:"Tu email",
+      button:"Recibe la primera camiseta →",
+      privacy:"Al suscribirte aceptas recibir los emails de The Shirt Hunter. Sin spam, prometido.",
+      thanks_big:"¡Estás dentro! ⚽",
+      thanks_p:"Revisa tu bandeja: la primera camiseta está llegando.",
+      how_h3:"Cómo funciona",
+      step1:"Introduce tu email aquí arriba",
+      step2:"Recibe una camiseta al día, del día 1 al 365",
+      step3:"Descubre historias y detalles que nadie te ha contado",
+      strip:"365 camisetas · 365 historias · 1 al día",
+      ig:"📸 Síguenos en Instagram <b>@theshirt_hunter</b>",
+      copy:"© <span id=\"y\"></span> The Shirt Hunter · Camisetas de fútbol de todo el mundo"
+    }
+  };
+  var FLAGS = {it:"🇮🇹", en:"🇬🇧", es:"🇪🇸"};
+
+  function setYear(){
+    var y = document.getElementById('y');
+    if(y) y.textContent = new Date().getFullYear();
+  }
+
+  function applyLang(code){
+    var dict = I18N[code];
+    if(!dict) return;
+    document.documentElement.lang = code;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(dict[k] != null) el.innerHTML = dict[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-ph');
+      if(dict[k] != null) el.setAttribute('placeholder', dict[k]);
+    });
+    if(dict.title) document.title = dict.title;
+    setYear(); // il footer viene rigenerato: reimposta l'anno
+    // aggiorna il pulsante della tendina
+    document.querySelector('.lang-btn .flag').textContent = FLAGS[code];
+    document.querySelector('.lang-btn .label').textContent = code.toUpperCase();
+    // evidenzia la voce attiva nel menu
+    document.querySelectorAll('.lang-menu button').forEach(function(b){
+      b.setAttribute('aria-current', b.getAttribute('data-lang') === code ? 'true' : 'false');
+    });
+    try{ localStorage.setItem('tsh_lang', code); }catch(e){}
+  }
+
+  (function initLang(){
+    var box = document.getElementById('lang');
+    var btn = document.getElementById('langBtn');
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = box.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(){
+      box.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    });
+    document.querySelectorAll('.lang-menu button').forEach(function(b){
+      b.addEventListener('click', function(e){
+        e.stopPropagation();
+        applyLang(b.getAttribute('data-lang'));
+        box.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      });
+    });
+    // lingua iniziale: scelta salvata → lingua del browser → italiano
+    var saved = null;
+    try{ saved = localStorage.getItem('tsh_lang'); }catch(e){}
+    var nav = (navigator.language || 'it').slice(0,2).toLowerCase();
+    var initial = (saved && I18N[saved]) ? saved : (I18N[nav] ? nav : 'it');
+    applyLang(initial);
+  })();
+
+  setYear();
 
   // MOTION: reveal allo scroll / al caricamento
   var io = new IntersectionObserver(function(entries){
