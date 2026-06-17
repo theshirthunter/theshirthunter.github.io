@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SHIRT HUNTER — Una maglia al giorno, ogni giorno</title>
+<meta name="description" content="La newsletter di The Shirt Hunter: ogni giorno ti racconto un particolare di una maglia di calcio. Una maglia al giorno per 365 giorni.">
+
+<!-- ====== OPEN GRAPH (anteprima quando condividi il link su Instagram/WhatsApp) ====== -->
+<meta property="og:title" content="THE SHIRT HUNTER — Una maglia al giorno">
+<meta property="og:description" content="La newsletter di @theshirt_hunter: ogni giorno un particolare di una maglia. Per 365 giorni.">
+<meta property="og:type" content="website">
+
+<style>
+  :root{
+    --nero:#0a0a0a;
+    --oro:#d4af37;
+    --oro-chiaro:#f3d98b;
+    --oro-scuro:#a87f23;
+    --bianco:#ffffff;
+    --grigio:#9a9a9a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
+    background:var(--nero);
+    color:var(--bianco);
+    line-height:1.4;
+    overflow-x:hidden;
+  }
+
+  /* ===== Sfondo: griglia con lieve deriva ===== */
+  .bg-lines{
+    position:fixed;inset:0;z-index:0;opacity:.05;
+    background-image:
+      linear-gradient(var(--oro) 1px, transparent 1px),
+      linear-gradient(90deg, var(--oro) 1px, transparent 1px);
+    background-size:60px 60px;
+    pointer-events:none;
+    animation:drift 40s linear infinite;
+  }
+  @keyframes drift{from{background-position:0 0,0 0}to{background-position:60px 60px,60px 60px}}
+
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 22px}
+
+  /* ===== MOTION: reveal ===== */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.28s}
+  .d4{transition-delay:.38s}.d5{transition-delay:.48s}
+
+  /* ===== HEADER / BRAND ===== */
+  header{padding:38px 0 6px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .brand{display:flex;align-items:center;gap:16px}
+  .emblem{position:relative;width:78px;height:78px;flex:none}
+  .emblem .glow{position:absolute;inset:-8px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,55,.45),transparent 65%);
+    filter:blur(6px);animation:breathe 4.5s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.8;transform:scale(1.08)}}
+  .emblem svg{position:relative;width:78px;height:78px}
+  .emblem .globe{transform-origin:60px 57px;animation:spin 18s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .brand .name{
+    font-size:clamp(24px,6vw,38px);line-height:.92;text-transform:uppercase;letter-spacing:1px;
+    background:linear-gradient(110deg,var(--oro-chiaro),var(--oro) 42%,#fff 50%,var(--oro) 58%,var(--oro-scuro));
+    background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shimmer 7s linear infinite}
+  @keyframes shimmer{to{background-position:220% center}}
+  .brand .name small{
+    display:block;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:600;
+    font-size:12px;letter-spacing:3px;color:var(--grigio);
+    -webkit-text-fill-color:var(--grigio);margin-top:6px}
+
+  /* ===== HERO ===== */
+  .hero{padding:26px 0 20px;text-align:center}
+  .kicker{
+    display:inline-flex;align-items:center;gap:9px;background:linear-gradient(180deg,var(--oro-chiaro),var(--oro-scuro));
+    color:var(--nero);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+    padding:7px 16px;border-radius:40px;margin-bottom:22px;font-weight:bold}
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--nero);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.6)}}
+  h1{
+    font-size:clamp(34px,8.5vw,68px);
+    line-height:.98;text-transform:uppercase;letter-spacing:-1.5px;
+    margin-bottom:18px}
+  h1 em{
+    font-style:normal;
+    background:linear-gradient(110deg,var(--oro-chiaro),var(--oro) 45%,#fff 52%,var(--oro) 60%);
+    background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shimmer 6s linear infinite}
+  h1 .out{
+    -webkit-text-stroke:2px var(--oro);color:transparent}
+  .sub{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    font-size:clamp(16px,4.2vw,21px);color:#e8e8e8;
+    max-width:540px;margin:0 auto 10px;line-height:1.5}
+  .sub strong{color:var(--oro)}
+  .motto{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-style:italic;
+    color:var(--grigio);font-size:15px;margin-top:4px}
+
+  /* ===== FORM ===== */
+  .form-card{
+    background:linear-gradient(180deg,#161616,#0d0d0d);
+    border:2px solid #2a230f;border-radius:20px;
+    padding:30px 26px;margin:34px 0;
+    box-shadow:0 24px 60px rgba(0,0,0,.6)}
+  .form-card h2{
+    font-size:clamp(20px,5vw,28px);text-transform:uppercase;
+    text-align:center;margin-bottom:6px;letter-spacing:-.5px}
+  .form-card .note{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    text-align:center;color:var(--grigio);font-size:14px;margin-bottom:22px}
+
+  /* === FORM === */
+  form{display:flex;flex-direction:column;gap:12px}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row > *{flex:1 1 200px}
+  input[type=text],input[type=email]{
+    width:100%;padding:16px 18px;border-radius:12px;border:2px solid #2a2a2a;
+    background:#0a0a0a;color:#fff;font-size:16px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    transition:border-color .2s,box-shadow .2s}
+  input::placeholder{color:#6a6a6a}
+  input:focus{outline:none;border-color:var(--oro);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+  button{
+    position:relative;overflow:hidden;
+    cursor:pointer;border:none;border-radius:12px;
+    padding:18px 20px;font-size:18px;text-transform:uppercase;
+    letter-spacing:1px;font-family:'Arial Black',Arial,sans-serif;
+    background:linear-gradient(180deg,var(--oro-chiaro),var(--oro) 60%,var(--oro-scuro));
+    color:var(--nero);
+    transition:transform .12s ease, filter .2s ease}
+  button:hover{filter:brightness(1.08);transform:translateY(-2px)}
+  button::after{content:"";position:absolute;top:0;left:-130%;width:55%;height:100%;
+    background:linear-gradient(110deg,transparent,rgba(255,255,255,.55),transparent);
+    transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite}
+  @keyframes shine{0%,62%{left:-130%}100%{left:170%}}
+  .privacy{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    text-align:center;color:#6a6a6a;font-size:12px;margin-top:6px}
+  .privacy a{color:var(--grigio)}
+
+  /* ===== COME FUNZIONA ===== */
+  .how{margin:44px 0 10px}
+  .how h3{
+    text-align:center;text-transform:uppercase;font-size:13px;
+    letter-spacing:3px;color:var(--grigio);margin-bottom:24px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .step{
+    background:#121212;border:2px solid #1f1f1f;border-radius:16px;
+    padding:22px 16px;text-align:center;
+    transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+  .step:hover{transform:translateY(-6px);border-color:var(--oro-scuro);box-shadow:0 16px 40px rgba(212,175,55,.12)}
+  .step .n{
+    font-size:34px;color:var(--oro);line-height:1;margin-bottom:10px}
+  .step p{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:600;
+    font-size:14px;color:#ddd}
+
+  /* ===== STRIP ===== */
+  .strip{
+    background:linear-gradient(180deg,var(--oro-chiaro),var(--oro-scuro));
+    color:var(--nero);
+    text-align:center;padding:18px;border-radius:16px;margin:34px 0;
+    text-transform:uppercase;font-size:clamp(15px,4.2vw,21px);
+    transform:rotate(-1deg);font-weight:bold}
+
+  /* ===== FOOTER / IG ===== */
+  footer{text-align:center;padding:30px 0 60px}
+  .ig{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;
+    text-decoration:none;color:#fff;border:2px solid var(--oro-scuro);
+    padding:12px 22px;border-radius:40px;font-size:15px;
+    transition:border-color .2s,background .2s,box-shadow .2s}
+  .ig:hover{border-color:var(--oro);background:rgba(212,175,55,.08);box-shadow:0 0 22px rgba(212,175,55,.18)}
+  .ig b{color:var(--oro)}
+  .copy{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    color:#555;font-size:12px;margin-top:24px}
+
+  @media(max-width:560px){
+    .steps{grid-template-columns:1fr}
+    .brand{flex-direction:column;gap:10px}
+  }
+
+  /* === stile per il form incollato da Systeme.io (così resta coerente) === */
+  .form-card form input[type=text],
+  .form-card form input[type=email]{
+    width:100%;padding:16px 18px;border-radius:12px;border:2px solid #2a2a2a;
+    background:#0a0a0a;color:#fff;font-size:16px;margin-bottom:12px;
+    font-family:'Helvetica Neue',Arial,sans-serif}
+  .form-card form button,
+  .form-card form input[type=submit]{
+    width:100%;cursor:pointer;border:none;border-radius:12px;
+    padding:18px 20px;font-size:18px;text-transform:uppercase;letter-spacing:1px;
+    font-family:'Arial Black',Arial,sans-serif;
+    background:linear-gradient(180deg,var(--oro-chiaro),var(--oro) 60%,var(--oro-scuro));color:var(--nero)}
+  .form-card form label{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--grigio)}
+
+  /* messaggio di conferma (demo) */
+  .thanks{
+    display:none;text-align:center;
+    font-family:'Helvetica Neue',Arial,sans-serif}
+  .thanks.show{display:block;animation:fadeUp .5s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .thanks .big{font-family:'Arial Black',Arial;font-size:24px;color:var(--oro);text-transform:uppercase;margin-bottom:8px}
+
+  /* rispetto preferenze di movimento ridotto */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="bg-lines"></div>
+<div class="wrap">
+
+  <header>
+    <div class="brand reveal">
+      <!-- Emblema in stile The Shirt Hunter (globo + maglia, oro su nero) -->
+      <div class="emblem">
+        <div class="glow"></div>
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Shirt Hunter">
+          <defs>
+            <linearGradient id="oro" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f3d98b"/>
+              <stop offset="0.55" stop-color="#d4af37"/>
+              <stop offset="1" stop-color="#a87f23"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="57" fill="#0c0c0c" stroke="url(#oro)" stroke-width="3"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="url(#oro)" stroke-width="1" opacity=".5"/>
+          <g class="globe" stroke="url(#oro)" stroke-width="1.4" fill="none" opacity=".85">
+            <circle cx="60" cy="57" r="27"/>
+            <ellipse cx="60" cy="57" rx="11.5" ry="27"/>
+            <line x1="33" y1="57" x2="87" y2="57"/>
+            <path d="M36 44 H84 M36 70 H84"/>
+          </g>
+          <path d="M45 45 L53 40 Q60 46 67 40 L75 45 L82 53 L73.5 60.5 L70.5 56.5 L70.5 82 L49.5 82 L49.5 56.5 L46.5 60.5 L38 53 Z"
+                fill="url(#oro)" stroke="#0c0c0c" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="name">The Shirt<br>Hunter
+        <small>UNA MAGLIA AL GIORNO · LA NEWSLETTER</small>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="kicker reveal d1"><span class="dot"></span> La newsletter ufficiale di @theshirt_hunter</span>
+    <h1 class="reveal d2">UNA <em>MAGLIA</em> AL GIORNO<br><span class="out">PER 365 GIORNI</span></h1>
+    <p class="sub reveal d3">Ogni giorno <strong>ti racconto un particolare di una maglia</strong>: la storia, il dettaglio nascosto, l'aneddoto che non conosci.</p>
+    <p class="motto reveal d4">Ogni maglia racconta una storia.</p>
+  </section>
+
+  <!-- ============================================================
+       FORM DI ISCRIZIONE  —  COLLEGAMENTO A SYSTEME.IO
+       Leggi GUIDA-SYSTEME.md (Parte 2).
+       In breve:
+       1) In Systeme.io crea un "Inline form" (Nome + Email)
+       2) Clicca "Script/Code" e scegli "copy as HTML code"
+       3) SOSTITUISCI tutto il blocco <form>...</form> qui sotto
+          con il codice HTML copiato da Systeme.io.
+       Il CSS della pagina darà stile automaticamente a input e bottone.
+       Finché non lo sostituisci, il form qui sotto mostra solo una
+       conferma demo (non salva davvero le email).
+       ============================================================ -->
+  <section class="form-card reveal d2" id="iscriviti">
+    <h2>Entra in campo 🟡</h2>
+    <p class="note">Gratis. Una mail al giorno. Disiscriviti quando vuoi.</p>
+
+    <!-- ▼▼▼ INIZIO BLOCCO DA SOSTITUIRE CON IL FORM SYSTEME.IO ▼▼▼ -->
+    <form id="signup"
+          action="INCOLLA_QUI_FORM_SYSTEME"
+          method="post"
+          target="_blank">
+      <div class="row">
+        <input type="text"  name="name"  placeholder="Il tuo nome" autocomplete="given-name">
+        <input type="email" name="email" placeholder="La tua email" required autocomplete="email">
+      </div>
+      <button type="submit">Ricevi la prima maglia →</button>
+      <p class="privacy">Iscrivendoti accetti di ricevere le email di The Shirt Hunter. Niente spam, promesso.</p>
+    </form>
+    <!-- ▲▲▲ FINE BLOCCO DA SOSTITUIRE ▲▲▲ -->
+
+    <div class="thanks" id="thanks">
+      <div class="big">Sei dentro! ⚽</div>
+      <p>Controlla la tua casella: la prima maglia sta arrivando.</p>
+    </div>
+  </section>
+
+  <section class="how">
+    <h3 class="reveal">Come funziona</h3>
+    <div class="steps">
+      <div class="step reveal d1"><div class="n">1</div><p>Inserisci la tua email qui sopra</p></div>
+      <div class="step reveal d2"><div class="n">2</div><p>Ricevi una maglia al giorno, dal giorno 1 al 365</p></div>
+      <div class="step reveal d3"><div class="n">3</div><p>Scopri storie e dettagli che nessuno ti ha mai raccontato</p></div>
+    </div>
+  </section>
+
+  <div class="strip reveal">365 maglie · 365 storie · 1 al giorno</div>
+
+  <footer class="reveal">
+    <a class="ig" href="https://www.instagram.com/theshirt_hunter/" target="_blank" rel="noopener">
+      📸 Seguici su Instagram <b>@theshirt_hunter</b>
+    </a>
+    <p class="copy">© <span id="y"></span> The Shirt Hunter · Football shirts from around the world</p>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // MOTION: reveal allo scroll / al caricamento
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  window.addEventListener('load', function(){
+    document.querySelectorAll('.reveal').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight) el.classList.add('in');
+    });
+  });
+
+  // DEMO: conferma finché il form non è collegato a Systeme.io
+  var form = document.getElementById('signup');
+  if(form){
+    form.addEventListener('submit', function(e){
+      if(form.getAttribute('action') === 'INCOLLA_QUI_FORM_SYSTEME'){
+        e.preventDefault();
+        form.style.display='none';
+        document.getElementById('thanks').classList.add('show');
+      }
+    });
+  }
+</script>
+</body>
+</html>
