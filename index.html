@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>365 MAGLIE — Una maglia al giorno, ogni giorno</title>
+<meta name="description" content="Ricevi una newsletter dove ogni giorno ti racconto un particolare di una maglia di calcio. Una maglia al giorno per 365 giorni.">
+
+<!-- ====== OPEN GRAPH (anteprima quando condividi il link su Instagram/WhatsApp) ====== -->
+<meta property="og:title" content="365 MAGLIE — Una maglia al giorno">
+<meta property="og:description" content="Ogni giorno ti racconto un particolare di una maglia di calcio. Per 365 giorni.">
+<meta property="og:type" content="website">
+
+<style>
+  :root{
+    --nero:#0a0a0a;
+    --verde:#00d563;      /* verde campo / accento vivo */
+    --giallo:#ffe000;     /* giallo bold */
+    --rosso:#ff3b30;
+    --bianco:#ffffff;
+    --grigio:#9a9a9a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
+    background:var(--nero);
+    color:var(--bianco);
+    line-height:1.4;
+    overflow-x:hidden;
+  }
+
+  /* ===== Sfondo dinamico tipo campo / linee ===== */
+  .bg-lines{
+    position:fixed;inset:0;z-index:0;opacity:.06;
+    background-image:
+      linear-gradient(var(--bianco) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bianco) 1px, transparent 1px);
+    background-size:60px 60px;
+    pointer-events:none;
+  }
+
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 22px}
+
+  /* ===== HERO ===== */
+  header{padding:46px 0 10px;text-align:center}
+  .logo{
+    display:inline-block;
+    font-size:clamp(28px,7vw,46px);
+    letter-spacing:-1px;
+    text-transform:uppercase;
+    line-height:.95;
+  }
+  .logo span{color:var(--verde)}
+  .logo .badge{
+    display:inline-block;background:var(--giallo);color:var(--nero);
+    padding:2px 10px;border-radius:6px;transform:rotate(-3deg);
+  }
+
+  .hero{padding:30px 0 20px;text-align:center}
+  .kicker{
+    display:inline-block;background:var(--verde);color:var(--nero);
+    font-size:13px;letter-spacing:2px;text-transform:uppercase;
+    padding:7px 14px;border-radius:40px;margin-bottom:22px;
+  }
+  h1{
+    font-size:clamp(34px,8.5vw,68px);
+    line-height:.98;text-transform:uppercase;letter-spacing:-1.5px;
+    margin-bottom:18px;
+  }
+  h1 em{color:var(--giallo);font-style:normal}
+  h1 .out{
+    -webkit-text-stroke:2px var(--verde);color:transparent;
+  }
+  .sub{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    font-size:clamp(16px,4.2vw,21px);color:#e8e8e8;
+    max-width:540px;margin:0 auto 6px;line-height:1.5;
+  }
+  .sub strong{color:var(--verde)}
+
+  /* ===== FORM ===== */
+  .form-card{
+    background:linear-gradient(180deg,#161616,#0d0d0d);
+    border:2px solid #1f1f1f;border-radius:20px;
+    padding:30px 26px;margin:34px 0;
+    box-shadow:0 24px 60px rgba(0,0,0,.6);
+  }
+  .form-card h2{
+    font-size:clamp(20px,5vw,28px);text-transform:uppercase;
+    text-align:center;margin-bottom:6px;letter-spacing:-.5px;
+  }
+  .form-card .note{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    text-align:center;color:var(--grigio);font-size:14px;margin-bottom:22px;
+  }
+
+  /* === FORM === */
+  form{display:flex;flex-direction:column;gap:12px}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row > *{flex:1 1 200px}
+  input[type=text],input[type=email]{
+    width:100%;padding:16px 18px;border-radius:12px;border:2px solid #2a2a2a;
+    background:#0a0a0a;color:#fff;font-size:16px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  input::placeholder{color:#6a6a6a}
+  input:focus{outline:none;border-color:var(--verde)}
+  button{
+    cursor:pointer;border:none;border-radius:12px;
+    padding:18px 20px;font-size:18px;text-transform:uppercase;
+    letter-spacing:1px;font-family:'Arial Black',Arial,sans-serif;
+    background:var(--verde);color:var(--nero);
+    transition:transform .12s ease, background .2s ease;
+  }
+  button:hover{background:var(--giallo);transform:translateY(-2px)}
+  .privacy{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    text-align:center;color:#6a6a6a;font-size:12px;margin-top:6px;
+  }
+  .privacy a{color:var(--grigio)}
+
+  /* ===== COME FUNZIONA ===== */
+  .how{margin:44px 0 10px}
+  .how h3{
+    text-align:center;text-transform:uppercase;font-size:13px;
+    letter-spacing:3px;color:var(--grigio);margin-bottom:24px;
+  }
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .step{
+    background:#121212;border:2px solid #1f1f1f;border-radius:16px;
+    padding:22px 16px;text-align:center;
+  }
+  .step .n{
+    font-size:34px;color:var(--verde);line-height:1;margin-bottom:10px;
+  }
+  .step p{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:600;
+    font-size:14px;color:#ddd;
+  }
+
+  /* ===== STRIP 365 ===== */
+  .strip{
+    background:var(--giallo);color:var(--nero);
+    text-align:center;padding:18px;border-radius:16px;margin:34px 0;
+    text-transform:uppercase;font-size:clamp(16px,4.5vw,22px);
+    transform:rotate(-1deg);
+  }
+
+  /* ===== FOOTER / IG ===== */
+  footer{text-align:center;padding:30px 0 60px}
+  .ig{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;
+    text-decoration:none;color:#fff;border:2px solid #2a2a2a;
+    padding:12px 22px;border-radius:40px;font-size:15px;
+    transition:border-color .2s;
+  }
+  .ig:hover{border-color:var(--verde)}
+  .copy{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:500;
+    color:#555;font-size:12px;margin-top:24px;
+  }
+
+  @media(max-width:560px){
+    .steps{grid-template-columns:1fr}
+  }
+
+  /* === stile per il form incollato da Systeme.io (così resta coerente) === */
+  .form-card form input[type=text],
+  .form-card form input[type=email]{
+    width:100%;padding:16px 18px;border-radius:12px;border:2px solid #2a2a2a;
+    background:#0a0a0a;color:#fff;font-size:16px;margin-bottom:12px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  .form-card form button,
+  .form-card form input[type=submit]{
+    width:100%;cursor:pointer;border:none;border-radius:12px;
+    padding:18px 20px;font-size:18px;text-transform:uppercase;letter-spacing:1px;
+    font-family:'Arial Black',Arial,sans-serif;background:var(--verde);color:var(--nero);
+  }
+  .form-card form label{
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--grigio);
+  }
+
+  /* messaggio di conferma (demo) */
+  .thanks{
+    display:none;text-align:center;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  .thanks.show{display:block}
+  .thanks .big{font-family:'Arial Black',Arial;font-size:24px;color:var(--verde);text-transform:uppercase;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="bg-lines"></div>
+<div class="wrap">
+
+  <header>
+    <div class="logo">365<span> ●</span> <span class="badge">MAGLIE</span></div>
+  </header>
+
+  <section class="hero">
+    <span class="kicker">⚽ La newsletter dei veri tifosi</span>
+    <h1>UNA <em>MAGLIA</em> AL GIORNO<br><span class="out">PER 365 GIORNI</span></h1>
+    <p class="sub">Ricevi una newsletter dove <strong>ogni giorno ti racconto un particolare di una maglia</strong>: la storia, il dettaglio nascosto, l'aneddoto che non conosci.</p>
+  </section>
+
+  <!-- ============================================================
+       FORM DI ISCRIZIONE  —  COLLEGAMENTO A SYSTEME.IO
+       Leggi GUIDA-SYSTEME.md (Parte 2).
+       In breve:
+       1) In Systeme.io crea un "Inline form" (Nome + Email)
+       2) Clicca "Script/Code" e scegli "copy as HTML code"
+       3) SOSTITUISCI tutto il blocco <form>...</form> qui sotto
+          con il codice HTML copiato da Systeme.io.
+       Il CSS della pagina darà stile automaticamente a input e bottone.
+       Finché non lo sostituisci, il form qui sotto mostra solo una
+       conferma demo (non salva davvero le email).
+       ============================================================ -->
+  <section class="form-card" id="iscriviti">
+    <h2>Entra in campo 🟢</h2>
+    <p class="note">Gratis. Una mail al giorno. Disiscriviti quando vuoi.</p>
+
+    <!-- ▼▼▼ INIZIO BLOCCO DA SOSTITUIRE CON IL FORM SYSTEME.IO ▼▼▼ -->
+    <form id="signup"
+          action="INCOLLA_QUI_FORM_SYSTEME"
+          method="post"
+          target="_blank">
+      <div class="row">
+        <input type="text"  name="name"  placeholder="Il tuo nome" autocomplete="given-name">
+        <input type="email" name="email" placeholder="La tua email" required autocomplete="email">
+      </div>
+      <button type="submit">Ricevi la prima maglia →</button>
+      <p class="privacy">Iscrivendoti accetti di ricevere le email di 365 Maglie. Niente spam, promesso.</p>
+    </form>
+    <!-- ▲▲▲ FINE BLOCCO DA SOSTITUIRE ▲▲▲ -->
+
+    <div class="thanks" id="thanks">
+      <div class="big">Sei dentro! ⚽</div>
+      <p>Controlla la tua casella: la prima maglia sta arrivando.</p>
+    </div>
+  </section>
+
+  <section class="how">
+    <h3>Come funziona</h3>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><p>Inserisci la tua email qui sopra</p></div>
+      <div class="step"><div class="n">2</div><p>Ricevi una maglia al giorno, dal giorno 1 al 365</p></div>
+      <div class="step"><div class="n">3</div><p>Scopri storie e dettagli che nessuno ti ha mai raccontato</p></div>
+    </div>
+  </section>
+
+  <div class="strip">365 maglie · 365 storie · 1 al giorno</div>
+
+  <footer>
+    <!-- >> Sostituisci con l'handle Instagram reale del tuo amico -->
+    <a class="ig" href="https://instagram.com/IL_TUO_AMICO" target="_blank" rel="noopener">
+      📸 Seguici su Instagram
+    </a>
+    <p class="copy">© <span id="y"></span> 365 Maglie · Fatto per chi ama il calcio</p>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // DEMO: mostra il messaggio di conferma finché il form non è collegato
+  // a Systeme.io. Una volta incollato il form reale, sarà Systeme.io a
+  // gestire l'iscrizione e potrai rimuovere questo blocco se vuoi.
+  var form = document.getElementById('signup');
+  if(form){
+    form.addEventListener('submit', function(e){
+      if(form.getAttribute('action') === 'INCOLLA_QUI_FORM_SYSTEME'){
+        e.preventDefault();
+        form.style.display='none';
+        document.getElementById('thanks').classList.add('show');
+      }
+    });
+  }
+</script>
+</body>
+</html>
